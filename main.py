@@ -24,7 +24,7 @@ def get_nat_rules():
 
 def get_mysql_rules():
     engine = create_engine('mysql+pymysql://'+config.dbuser+':'+config.dbpassword+'@'+config.dbhost+':'+config.dbport+'/'+config.dbdatase)
-    sql = "select * from relay where ip='"+config.publice_ip+"'"
+    sql = "select * from relay where ip='"+config.publice_ip+"' or relay='"+config.publice_ip+"'"
     try:
         df = pd.read_sql_query(sql, engine)
         rules = pd.DataFrame([df['ip'], df['relay'], df['dip'], df['port']])
