@@ -7,13 +7,6 @@ import config
 import schedule
 import time
 
-name = "longsongpong"
-schedule.every(10).minutes.do(job, name)
-schedule.every().hour.do(job, name)
-schedule.every().day.at("10:30").do(job, name)
-schedule.every(5).to(10).days.do(job, name)
-schedule.every().monday.do(job, name)
-schedule.every().wednesday.at("13:15").do(job, name)
 
 logging.basicConfig(level = logging.INFO,format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
