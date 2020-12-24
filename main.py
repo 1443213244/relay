@@ -7,9 +7,6 @@ import config
 import schedule
 import time
 
-def job(name):
-    print("her name is : ", name)
-
 name = "longsongpong"
 schedule.every(10).minutes.do(job, name)
 schedule.every().hour.do(job, name)
@@ -34,7 +31,7 @@ def get_nat_rules():
 
 def get_mysql_rules():
     engine = create_engine('mysql+pymysql://'+config.dbuser+':'+config.dbpassword+'@'+config.dbhost+':'+config.dbport+'/'+config.dbdatase)
-    sql = "select * from relay where ip='"+config.localip+"'"
+    sql = "select * from relay where ip='"+config.publice_ip+"'"
     try:
         df = pd.read_sql_query(sql, engine)
         rules = pd.DataFrame([df['ip'], df['relay'], df['dip'], df['port']])
@@ -142,6 +139,10 @@ def job():
         del data_rule['ip']
         data_rule.columns = ['ip', 'relay', 'port']
 
+    if config.private_ip != '':
+        data_rule['ip'] = data_rule['ip'].replace([config.publice_ip], config.private_ip)
+    print data_rule
+
     #Judge whether the program is executed for the first time
     if rule.empty and data_rule.notnull:
         batch_add_rule(data_rule, 'PREROUTING')
@@ -172,5 +173,4 @@ if __name__ == '__main__':
     while True:
         schedule.run_pending()
     time.sleep(1)
-
 
