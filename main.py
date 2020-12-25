@@ -23,7 +23,7 @@ def get_nat_rules():
 
 
 def get_mysql_rules():
-    engine = create_engine('mysql+pymysql://'+config.dbuser+':'+config.dbpassword+'@'+config.dbhost+':'+config.dbport+'/'+config.dbdatase)
+    engine = create_engine('mysql+pymysql://'+config.dbuser+':'+config.dbpassword+'@'+config.dbhost+':'+config.dbport+'/'+config.dbname)
     sql = "select * from relay where ip='"+config.publice_ip+"' or relay='"+config.publice_ip+"'"
     try:
         df = pd.read_sql_query(sql, engine)
