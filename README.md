@@ -12,7 +12,7 @@
 2. cd relay
 3. 执行安装脚本./install.sh
 4. 修改配置文件config.py
-    * publice_ip问公网IP地址
+    * publice_ip公网IP地址
     * private_ip内网IP地址，适用部分无法直接通公网转发的云服务器（阿里），通过公网转发此选项请保持默认！
     * dbhost数据库地址
     * dbuser数据库用户
