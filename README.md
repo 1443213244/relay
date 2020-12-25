@@ -19,9 +19,9 @@
     * dbport数据库端口
     * dbname数据库名称
     * dbpassword数据库密码
-    * mode运行模式(maters/relay)
-        * master模式，此模式转发国内IP到中转Ip。
-        * relay模式，此模式转发中转IP到目标IP
+ * mode运行模式(maters/relay)
+    * master模式，此模式转发国内IP到中转Ip。
+    * relay模式，此模式转发中转IP到目标IP
 
  
 
