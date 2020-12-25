@@ -107,17 +107,26 @@ def batch_del_rule(data, chain1):
 
 
 def del_rule(data, chain1):
+    print data
     chain = iptc.Chain(iptc.Table(iptc.Table.NAT), chain1)
     if chain1 == 'PREROUTING':
+        chain = iptc.Chain(iptc.Table(iptc.Table.NAT), chain1)
         for rule in chain.rules:
-            if rule.dst.split('/')[0] == data.ip and rule.target.to_destination == data['relay']:
-                logging.info("Delete relay PREROUTING %s  to %s port %s done!" % (data['ip'], data['relay'], data['port']))
+            port = []
+            for m in rule.matches:
+                port.append(m.dport)
+            if rule.dst.split('/')[0] == data['ip'] and rule.target.to_destination == data['relay'] and port[0] == data['port']:
+                print rule.dst, rule.target.to_destination, port
                 chain.delete_rule(rule)
+                logging.info("Delete relay PREROUTING %s  to %s port %s done!" % (data['ip'], data['relay'], data['port']))
     else:
         for rule in chain.rules:
-            if rule.dst.split('/')[0] == data['relay'] and rule.target.to_source == data['ip']:
-                logging.info("Delete relay POSTROUTING %s  to %s port %s done!" % (data['ip'], data['relay'], data['port']))
+            port = []
+            for m in rule.matches:
+                port.append(m.dport)
+            if rule.dst.split('/')[0] == data['relay'] and rule.target.to_source == data['ip'] and port[0] == data['port']:
                 chain.delete_rule(rule)
+                logging.info("Delete relay POSTROUTING %s  to %s port %s done!" % (data['ip'], data['relay'], data['port']))
 
 def job():
     #Get iptable rules from local
