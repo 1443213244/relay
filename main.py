@@ -16,11 +16,12 @@ def get_nat_rules():
     chain=iptc.easy.dump_table('nat',ipv6=False)
     info = []
     for i in chain['PREROUTING']:
-        relay_ip  = i['target']['DNAT']['to-destination'].split(':')[0]
-        ip = i['dst'].split('/')[0]
-        sport = i['tcp'][0]['dport']
-        dport = i['target']['DNAT']['to-destination'].split(':')[1]
-        info.append([ip,relay_ip,sport, dport])
+        if "dst" in i:
+            relay_ip  = i['target']['DNAT']['to-destination'].split(':')[0]
+            ip = i['dst'].split('/')[0]
+            sport = i['tcp'][0]['dport']
+            dport = i['target']['DNAT']['to-destination'].split(':')[1]
+            info.append([ip,relay_ip,sport, dport])
     rule = pd.DataFrame(info, columns=['ip','relay', 'sport', 'dport'])
     logging.info("Get local iptables rule done!")
     return rule
