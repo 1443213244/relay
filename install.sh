@@ -1,5 +1,6 @@
 #!/bin/bash
 echo "首次使用正在安装运行环境"
+mkdir ./data
 systemctl stop firewalld.service
 systemctl disable firewalld.service
 yum install python-devel supervisor iptables-services -y
