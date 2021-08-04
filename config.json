@@ -1,0 +1,10 @@
+{
+  "publice_ip":"127.0.0.1",
+  "private_ip":"",
+  "dbhost":"127.0.0.1",
+  "dbport":3306,
+  "dbname":"db",
+  "dbuser":"user",
+  "dbpassword":"password",
+  "mode":"relay"
+}
