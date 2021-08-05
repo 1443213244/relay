@@ -157,6 +157,7 @@ if __name__ == '__main__':
     # cProfile.run('worker(config)')
     schedule.every(1).minutes.do(worker)
     while True:
+         time.sleep(1)
          schedule.run_pending()
 
 
